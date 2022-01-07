@@ -1,1 +1,9 @@
-
+microservice:
+  payment-service:
+    endpoints:
+      endpoint:
+        uri: http://DRIVE-SERVICE/api/v1/uploadform/drive
+  order-service:
+    endpoints:
+      endpoint:
+        uri: http://BATCH-SERVICE/api/v1/academy/batch
