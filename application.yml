@@ -1,9 +1,53 @@
 microservice:
-  drive-service:
+  inventory-service:
     endpoints:
       endpoint:
-        uri: http://DRIVE-SERVICE/api/v1/uploadform/drive
-  batch-service:
+        uri: http://INVENTORY-SERVICE/api/v1/product
+  order-service:
     endpoints:
       endpoint:
-        uri: http://BATCH-SERVICE/api/v1/academy/batch
+        uri: http://ORDER-SERVICE/api/v1/order
+   payment-service:
+    endpoints:
+      endpoint:
+        uri: http://PAYMENT-SERVICE/api/v1/payment
+   admin-service:
+    endpoints:
+      endpoint:
+        uri: http://ADMIN-SERVICE/api/v1/admin
+   user-service:
+    endpoints:
+      endpoint:
+        uri: http://USER-SERVICE/api/v1/user 
+   role-service:
+    endpoints:
+      endpoint:
+        uri: http://ROLE-SERVICE/api/v1/role     
+   
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format-sql: true
+        dialect : org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost      
+      
+file:
+  upload:
+    location: C:\fitness      
+    
