@@ -27,7 +27,7 @@ microservice:
 
 logging:
   file:
-    name: C:\Users\ANAND\Desktop\MicroserviceLogFile\shoppingservice.log
+    name: C:/Users/ANAND/Desktop/MicroserviceLogFile/shoppingservice.log
 spring:    
   jpa:
     properties:
