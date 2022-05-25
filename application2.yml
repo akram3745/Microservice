@@ -1,0 +1,98 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format-sql: true
+        dialect : org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  zipkin:
+     base-url: http://localhost:9411/      
+      
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    
+http:
+  read:
+    timeout: 5000
+  connection:
+    timeout: 5000
+    
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
+  endpoint:
+    health:
+      show-details: always   
+
+resilience4j:
+  circuitbreaker:
+    circuitBreakerAspectOrder : 1
+    configs:
+        default:
+          register-health-indicator: true
+          event-consumer-buffer-size: 10
+          automatic-transition-from-open-to-half-open-enabled: true
+          failure-rate-threshold: 50
+          minimum-number-of-calls: 5
+          permitted-number-of-calls-in-half-open-state: 3
+          sliding-window-size: 10
+          wait-duration-in-open-state: 5000
+          sliding-window-type: count-based
+          record-exceptions:
+             - java.lang.IllegalArgumentException
+             - org.springframework.web.client.HttpServerErrorException
+             - java.io.IOException
+             - java.lang.Exception
+             - java.net.UnknownHostException
+             - org.springframework.web.client.HttpClientErrorException$NotFound
+             - java.net.ConnectException
+             - java.lang.reflect.UndeclaredThrowableException
+
+          ignoreExceptions:
+             - java.lang.IllegalStateException   
+
+                     
+  timelimiter:
+     timeLimiterAspectOrder : 2
+     configs:
+        default:
+           cancel-running-future: true
+           timeout-duration: 5000
+         
+                
+     instances:
+       user-service:
+            baseConfig: default
+       admin-service:
+            baseConfig: default
+       role-service:
+            baseConfig: default
+       inventory-service:
+            baseConfig: default 
+       order-service:
+            baseConfig: default
+       payment-service:
+            baseConfig: default      
+      
+file:
+  upload:
+    location: C:\fitness      
+    
